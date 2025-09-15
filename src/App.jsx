@@ -21,41 +21,44 @@ import LandlordDashboardPage from './modules/landlord/pages/DashboardPage'
 import AdminDashboardPage from './modules/admin/pages/DashboardPage'
 import UserListPage from './modules/admin/pages/UserListPage'
 import UserDetailPage from './modules/admin/pages/UserDetailPage'
+import HostListPage from './modules/admin/pages/HostListPage'
 
 import './globals.css'
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <div className="App">
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/login" element={<ProtectedRoute requireAuth={false}><LoginPage /></ProtectedRoute>} />
-            <Route path="/register" element={<ProtectedRoute requireAuth={false}><RegisterPage /></ProtectedRoute>} />
-            <Route path="/register-landlord" element={<ProtectedRoute requireAuth={false}><RegisterLandlordPage /></ProtectedRoute>} />
+      <AuthProvider>
+        <Router>
+          <div className="App">
+            <Routes>
+              {/* Public Routes */}
+              <Route path="/login" element={<ProtectedRoute requireAuth={false}><LoginPage /></ProtectedRoute>} />
+              <Route path="/register" element={<ProtectedRoute requireAuth={false}><RegisterPage /></ProtectedRoute>} />
+              <Route path="/register-landlord" element={<ProtectedRoute requireAuth={false}><RegisterLandlordPage /></ProtectedRoute>} />
 
-            {/* User Routes */}
-            <Route path="/news-feed" element={<ProtectedRoute><NewsFeedPage /></ProtectedRoute>} />
-            <Route path="/housing" element={<ProtectedRoute><HousingListPage /></ProtectedRoute>} />
-            <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+              {/* User Routes */}
+              <Route path="/news-feed" element={<ProtectedRoute><NewsFeedPage /></ProtectedRoute>} />
+              <Route path="/housing" element={<ProtectedRoute><HousingListPage /></ProtectedRoute>} />
+              <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
 
-            {/* Landlord Routes */}
-            <Route path="/landlord/dashboard" element={<ProtectedRoute requireLandlord={true}><LandlordDashboardPage /></ProtectedRoute>} />
+              {/* Landlord Routes */}
+              <Route path="/landlord/dashboard" element={<ProtectedRoute requireLandlord={true}><LandlordDashboardPage /></ProtectedRoute>} />
 
-            {/* Admin Routes */}
-            <Route path="/admin/dashboard" element={<ProtectedRoute requireAdmin={true}><AdminDashboardPage /></ProtectedRoute>} />
-            <Route path="/admin/users" element={<ProtectedRoute requireAdmin={true}><UserListPage /></ProtectedRoute>} />
-            <Route path="/admin/users/:userId" element={<ProtectedRoute requireAdmin={true}><UserDetailPage /></ProtectedRoute>} />
+              {/* Admin Routes */}
+              <Route path="/admin/dashboard" element={<ProtectedRoute requireAdmin={true}><AdminDashboardPage /></ProtectedRoute>} />
+              <Route path="/admin/users" element={<ProtectedRoute requireAdmin={true}><UserListPage /></ProtectedRoute>} />
+              <Route path="/admin/users/:userId" element={<ProtectedRoute requireAdmin={true}><UserDetailPage /></ProtectedRoute>} />
+              <Route path="/admin/hosts" element={<ProtectedRoute requireAdmin={true}><HostListPage /></ProtectedRoute>} />
 
-            {/* Default & Fallback Routes */}
-            <Route path="/" element={<Navigate to="/login" replace />} />
-            <Route path="*" element={<Navigate to="/news-feed" replace />} />
-          </Routes>
-          <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
-        </div>
-      </Router>
-    </AuthProvider>
+
+              {/* Default & Fallback Routes */}
+              <Route path="/" element={<Navigate to="/login" replace />} />
+              <Route path="*" element={<Navigate to="/news-feed" replace />} />
+            </Routes>
+            <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
+          </div>
+        </Router>
+      </AuthProvider>
   )
 }
 
