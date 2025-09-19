@@ -29,20 +29,46 @@ const HostListPage = () => {
         fetchHosts(page);
     }, [fetchHosts, page]);
 
-    const handleAction = async (action, hostId, successMessage) => {
-        try {
-            await action(hostId);
-            toast.success(successMessage);
-            fetchHosts(page);
-        } catch (error) {
-            toast.error('Thao tác thất bại.');
+    const handleAction = async (action, hostId, successMessage, confirmationMessage) => {
+        if (window.confirm(confirmationMessage)) {
+            try {
+                await action(hostId);
+                toast.success(successMessage);
+                fetchHosts(page);
+            } catch (error) {
+                toast.error('Thao tác thất bại.');
+            }
         }
     };
 
-    const handleApprove = (hostId) => handleAction(adminService.approveHost, hostId, 'Duyệt chủ nhà thành công.');
-    const handleReject = (hostId) => handleAction(adminService.rejectHost, hostId, 'Từ chối chủ nhà thành công.');
-    const handleToggleLock = (hostId) => handleAction(adminService.toggleUserStatus, hostId, 'Thay đổi trạng thái thành công.');
+    const handleApprove = (hostId) => {
+        handleAction(
+            adminService.approveHost,
+            hostId,
+            'Duyệt chủ nhà thành công.',
+            'Bạn có chắc chắn muốn duyệt chủ nhà này?'
+        );
+    };
 
+    const handleReject = (hostId) => {
+        handleAction(
+            adminService.rejectHost,
+            hostId,
+            'Từ chối chủ nhà thành công.',
+            'Bạn có chắc chắn muốn từ chối chủ nhà này?'
+        );
+    };
+
+    const handleToggleLock = (hostId) => {
+        const host = hosts.find(h => h.id === hostId);
+        const actionMessage = host.accountNonLocked ? 'khóa' : 'mở khóa';
+        handleAction(
+            adminService.toggleUserStatus,
+            hostId,
+            `Thay đổi trạng thái thành công.`,
+            `Bạn có chắc chắn muốn ${actionMessage} tài khoản này?`
+        );
+    };
 
     return (
         <MainLayout>

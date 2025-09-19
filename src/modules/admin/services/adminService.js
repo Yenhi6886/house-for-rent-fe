@@ -38,6 +38,15 @@ class AdminService {
     }
   }
 
+  async getHostDetails(hostId) {
+    try {
+      const response = await apiClient.get(`/admin/hosts/${hostId}`);
+      return response.data.data;
+    } catch (error) {
+      throw new Error(handleApiError(error));
+    }
+  }
+
   async approveHost(hostId) {
     try {
       const response = await apiClient.put(`/admin/hosts/${hostId}/approve`);

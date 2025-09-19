@@ -22,6 +22,7 @@ import AdminDashboardPage from './modules/admin/pages/DashboardPage'
 import UserListPage from './modules/admin/pages/UserListPage'
 import UserDetailPage from './modules/admin/pages/UserDetailPage'
 import HostListPage from './modules/admin/pages/HostListPage'
+import HostDetailPage from './modules/admin/pages/HostDetailPage'
 
 import './globals.css'
 
@@ -41,7 +42,7 @@ function App() {
               <Route path="/housing" element={<ProtectedRoute><HousingListPage /></ProtectedRoute>} />
               <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
 
-              {/* Landlord Routes */}
+              {/* Landlord Pages */}
               <Route path="/landlord/dashboard" element={<ProtectedRoute requireLandlord={true}><LandlordDashboardPage /></ProtectedRoute>} />
 
               {/* Admin Routes */}
@@ -49,6 +50,7 @@ function App() {
               <Route path="/admin/users" element={<ProtectedRoute requireAdmin={true}><UserListPage /></ProtectedRoute>} />
               <Route path="/admin/users/:userId" element={<ProtectedRoute requireAdmin={true}><UserDetailPage /></ProtectedRoute>} />
               <Route path="/admin/hosts" element={<ProtectedRoute requireAdmin={true}><HostListPage /></ProtectedRoute>} />
+              <Route path="/admin/hosts/:hostId" element={<ProtectedRoute requireAdmin={true}><HostDetailPage /></ProtectedRoute>} />
 
 
               {/* Default & Fallback Routes */}

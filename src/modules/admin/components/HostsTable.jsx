@@ -1,8 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../../../components/ui/button';
 import { Badge } from '../../../components/ui/badge';
 
 const HostsTable = ({ hosts, onApprove, onReject, onToggleLock }) => {
+    const navigate = useNavigate();
+
+    const handleViewDetails = (hostId) => {
+        navigate(`/admin/hosts/${hostId}`);
+    };
 
     const renderStatus = (host) => {
         if (host.hostStatus === 'PENDING') {
@@ -58,13 +64,13 @@ const HostsTable = ({ hosts, onApprove, onReject, onToggleLock }) => {
                 </thead>
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                 {hosts.map((host) => (
-                    <tr key={host.id} className="hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{host.fullName}</td>
+                    <tr key={host.id} className="hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer" onClick={() => handleViewDetails(host.id)}>
+                        <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">{host.fullName}</td>
                         <td className="py-4 px-6 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{host.phone}</td>
                         <td className="py-4 px-6 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(host.revenue)}</td>
                         <td className="py-4 px-6 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{host.propertyCount}</td>
                         <td className="py-4 px-6 whitespace-nowrap">{renderStatus(host)}</td>
-                        <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-center space-x-2">
+                        <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-center space-x-2" onClick={(e) => e.stopPropagation()}>
                             {renderActions(host)}
                         </td>
                     </tr>
